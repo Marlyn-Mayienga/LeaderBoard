@@ -1,21 +1,21 @@
-export default class STORE {
-    static getScoreList = (piece) => {
+export default class StoreUI {
+    static displayScoreList = (gameScore) => {
       const scoresList = document.querySelector('.scores-list');
 
-      const listedPiece = document.createElement('li');
-      listedPiece.classList.add('listed-piece');
-      listedPiece.dataset.id = piece.id;
+      const scoreItem = document.createElement('li');
+      scoreItem.classList.add('listed-score');
+      scoreItem.dataset.id = gameScore.id;
 
-      const pieceName = document.createElement('p');
-      pieceName.classList.add('piece-name');
-      pieceName.textContent = `${piece.name}:`;
+      const scoreName = document.createElement('p');
+      scoreName.classList.add('score-name');
+      scoreName.textContent = `${gameScore.user}:`;
 
-      const pieceScore = document.createElement('p');
-      pieceScore.classList.add('piece-score');
-      pieceScore.textContent = piece.score;
+      const gameScoreItem = document.createElement('p');
+      gameScoreItem.classList.add('listed-score');
+      gameScoreItem.textContent = gameScore.score;
 
-      scoresList.appendChild(listedPiece);
-      listedPiece.appendChild(pieceName);
-      listedPiece.appendChild(pieceScore);
+      scoresList.appendChild(scoreItem);
+      scoreItem.appendChild(scoreName);
+      scoreItem.appendChild(gameScoreItem);
     }
 }
