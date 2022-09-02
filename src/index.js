@@ -1,30 +1,27 @@
 import './styles.css';
-import STORE from './modules/store.js';
+import StoreUI from './modules/store.js';
+import ApiScore from './modules/apiscores.js';
 
-const { v4: uuidv4 } = require('uuid');
+const init = async () => {
+  const scores = await ApiScore.getScores();
 
-const pieces = [
-  {
-    name: 'Merlin',
-    score: '200',
-    id: uuidv4(),
-  },
+  const scoresList = document.querySelector('.scores-list');
+  scoresList.replaceChildren();
 
-  {
-    name: 'Malea',
-    score: '120',
-    id: uuidv4(),
-  },
-
-  {
-    name: 'Marilyn',
-    score: '530',
-    id: uuidv4(),
-  },
-];
-
-const init = () => {
-  pieces.forEach((piece) => STORE.getScoreList(piece));
+  scores.forEach((score) => StoreUI.displayScoreList(score));
 };
 
 init();
+
+const user = document.getElementById('name-input');
+const score = document.getElementById('score-input');
+
+const form = document.getElementById('form');
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  await ApiScore.submitScore(user.value, Number(score.value));
+  init();
+};
+
+form.addEventListener('submit', handleSubmit);
